@@ -9,7 +9,7 @@ var jabbrGenerator = {
 		var i = 0;
 		sites.forEach(function(entry) 
 		{
-			var searchOnJabbr = 'http://jabbrv1.azurewebsites.net/Search?URL=' + tabs[0].url + "&Sites=" + entry;
+			var searchOnJabbr = 'http://jabbrv1.azurewebsites.net/Search?URL=' + tabs[0].url + "&App=Chrome&Sites=" + entry;
 			console.log(searchOnJabbr);
 			var req = new XMLHttpRequest();
 			req.open("GET", searchOnJabbr, true);
@@ -24,10 +24,24 @@ var jabbrGenerator = {
 					  var SiteResults = result.Site_Results;
 					  if (SiteResults.length > 0)
 					  {
-						  HTML += "<div class='sitegroup'><img src='jabbr_tools.png' \> " + result.SiteName + "(" + SiteResults.length + ")</div>";
+						  var image = "jabbr_tools";
+						  if (result.SiteName == "Reddit" || result.SiteName == "Facebook" || result.SiteName == "Twitter" || result.SiteName == "Hackernews")
+						  	image = result.SiteName;
+						  HTML += "<div class='sitegroup'><img class='siteimage' src='" + image + ".png' \> <span class='sitelabel'>" + result.SiteName + " (" + SiteResults.length + ")</span></div>";
 						  SiteResults.forEach(function (site) {
 							  HTML += "<div class='result'>";
-							  HTML += "<a target='_blank' href='" + site.URL + "'>" + site.Title + "</a><BR>";
+							  var title = site.Title;
+							  if (title == "")
+							  	return;
+							  if (title.length > 50)
+							  	title = title.substring(0,40);
+							  HTML += "<a target='_blank' href='" + site.URL + "'>" + title + "</a><BR>";
+							  if (site.Score > 0)
+							  	HTML += "<div style='display:inline' class='points sub'>" + site.Score + "</div>";
+							  if (site.Comments > 0)
+							  	HTML += "<div style='display:inline' class='comments sub'>" + site.Comments + " comments</div>";
+							  if (site.subtitle)
+							  	HTML += "<div style='display:inline' class='subtitle sub'>" + site.subtitle + "</div>";
 							  HTML += "</div>";
 							  total++;
 						  });
@@ -42,10 +56,12 @@ var jabbrGenerator = {
 				  		document.getElementById("Main").innerHTML = "No Results";
 				  }
 				  chrome.browserAction.setBadgeText ({"text": total.toString(), tabId: tabs[0].id});
+				  chrome.browserAction.setBadgeBackgroundColor({"color": [0, 0, 0, 100]}); 
 				}
 				else
 				{
 				  document.getElementById("Main").innerHTML += "<BR>Connection to " + entry + " failed";
+				  i++;
 				}
 			};
 			req.send(null);
