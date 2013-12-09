@@ -26,12 +26,15 @@ function refreshBadge()
 			url_current[selectedId] = tab.url;			
 			
 			var excludedRegex, match;
-			excludedRegex = settings.get('excludedRegex').split('\n');
-			excludedDomains = settings.get('excludedDomains').split('\n');
-			match = false;
-			for (var i = 0; i < excludedRegex.length; i++) {
-				if (tab.url.match(new RegExp(excludedRegex[i], "i")) !== null) {
-					match = true;
+			if (settings.get('excludedRegex'))
+			{
+				excludedRegex = settings.get('excludedRegex').split('\n');
+				match = false;
+				for (var i = 0; i < excludedRegex.length; i++) {
+					if (tab.url.match(new RegExp(excludedRegex[i], "i")) !== null) {
+						match = true;
+						break;
+					}
 				}
 			}
 			

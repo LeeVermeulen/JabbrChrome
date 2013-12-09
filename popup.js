@@ -27,24 +27,40 @@ var jabbrGenerator = {
 						  var image = "jabbr_tools";
 						  if (result.SiteName == "Reddit" || result.SiteName == "Facebook" || result.SiteName == "Twitter" || result.SiteName == "Hackernews")
 						  	image = result.SiteName;
-						  HTML += "<div class='sitegroup'><img class='siteimage' src='" + image + ".png' \> <span class='sitelabel'>" + result.SiteName + " (" + SiteResults.length + ")</span></div>";
+						
+						  HTML += '<div class="container"><div class="well">';
+						  HTML += '<a href="#" data-toggle="collapse" class="head active" data-target="#tar' + i + '">';
+						  HTML += '<i class="caret"></i><i class="right-caret"></i>';
+						  HTML += " <img class='siteimage' src='" + image + ".png' \> ";
+						  HTML += result.SiteName + " (" + SiteResults.length + ") </a>";
+					   	  HTML += "<div id='tar" + i + "' class='collapse'>";
+						  HTML += '<ul class="nav nav-list">';
+						  //HTML += "<div class='sitegroup'><img class='siteimage' src='" + image + ".png' \> <span class='sitelabel'>" + result.SiteName + " (" + SiteResults.length + ")</span></div>";
 						  SiteResults.forEach(function (site) {
-							  HTML += "<div class='result'>";
 							  var title = site.Title;
 							  if (title == "")
 							  	return;
-							  if (title.length > 50)
-							  	title = title.substring(0,40);
-							  HTML += "<a target='_blank' href='" + site.URL + "'>" + title + "</a><BR>";
+							  if (title.length > 47)
+							  	title = title.substring(0,47);
+							  HTML += "<li><a target='_blank' href='" + site.URL + "'>" + title + "</a>";
 							  if (site.Score > 0)
 							  	HTML += "<div style='display:inline' class='points sub'>" + site.Score + "</div>";
 							  if (site.Comments > 0)
-							  	HTML += "<div style='display:inline' class='comments sub'>" + site.Comments + " comments</div>";
+							  	HTML += "<div style='display:inline' class='comments sub'> " + site.Comments + " comments </div>";
 							  if (site.subtitle)
-							  	HTML += "<div style='display:inline' class='subtitle sub'>" + site.subtitle + "</div>";
-							  HTML += "</div>";
+							  	HTML += "<div style='display:inline' class='subtitle sub'> - " + site.subtitle + "</div>";
+							  HTML += "</li>";
 							  total++;
 						  });
+						  HTML += "</ul></div></div></div>";
+					  }
+					  else
+					  {
+						  if (document.getElementById("NoResults").innerHTML == "")
+						  	document.getElementById("NoResults").innerHTML += "No Results: ";
+						  else
+				  		  	document.getElementById("NoResults").innerHTML += ", ";
+				  		  document.getElementById("NoResults").innerHTML += result.SiteName;
 					  }
 				  });
 				  document.getElementById("Main").innerHTML += HTML;
@@ -52,11 +68,13 @@ var jabbrGenerator = {
 				  if (i == sites.length)
 				  {
 				  	document.getElementById("Loading").innerHTML = "";
-					if (total == 0)
-				  		document.getElementById("Main").innerHTML = "No Results";
 				  }
 				  chrome.browserAction.setBadgeText ({"text": total.toString(), tabId: tabs[0].id});
 				  chrome.browserAction.setBadgeBackgroundColor({"color": [0, 0, 0, 100]}); 
+				  
+					$(".head").click(function(){
+					  $(this).toggleClass('active, inactive');
+					})
 				}
 				else
 				{

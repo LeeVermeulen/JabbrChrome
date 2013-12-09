@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Jabbr</title>
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.1/css/bootstrap-combined.min.css" rel="stylesheet">
     <style>
       body {
         min-width: 357px;
@@ -22,7 +23,8 @@
 	  }
 	  .points 
 	  {
-	  	background-color:#CCCCCC;
+	  	/* background-color:#CCCCCC; */
+		font-weight:bold;
 	  }
 	  .comments 
 	  {
@@ -51,14 +53,51 @@
 	  {
 	  	margin:6px; 
 	  }
+	  
+		.active i.right-caret{ display:inline-block; }
+		.active i.caret { display:none;}
+		
+		.inactive i.caret { display:inline-block; }
+		.inactive i.right-caret { display:none;}
+		
+		.caret {
+			border-left: 4px solid transparent;
+			border-right: 4px solid transparent;
+			border-top: 4px solid #000000;
+			display: inline-block;
+			height: 0;
+			opacity: 0.3;
+			vertical-align: middle;
+			width: 0;
+		}
+		
+		.right-caret {
+			border-bottom: 4px solid transparent;
+			border-top: 4px solid transparent;
+			border-left: 4px solid #000000;
+			display: inline-block;
+			height: 0;
+			opacity: 0.3;
+			vertical-align: middle;
+			width: 0;
+		}
+		
+		.well
+		{
+			padding:4px;
+			margin-bottom:3px;
+		}
     </style>
-
+    
 	<script type="text/javascript" src="/fancy-settings/lib/store.js"></script>
     <script src="popup.js"></script>
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
   </head>
   <body>
       <div id="Main"></div>
       <div id="Loading" style="width:100%; text-align:center"><img src="loader.gif"\></div>
+      <div id="NoResults"></div>
   </body>
 </html>
 
