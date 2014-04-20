@@ -39,6 +39,8 @@ function refreshBadge()
 			}
 			
 			totals[tab.id] = 0;
+			
+			if (settings.get('ShowCached'))
 			if (!match)
 			{
 				var searchOnJabbr = 'http://jabbrv1.azurewebsites.net/Search/GetNumber?URL=' + tab.url;

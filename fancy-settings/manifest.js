@@ -5,6 +5,13 @@ this.manifest = {
     "settings": [
         {
         	"tab": chrome.i18n.getMessage('tab_preferences'),
+        	"group": "Options",
+        	"name": "ShowCached",
+        	"type": "checkbox",
+        	"label": "Check for Cached Results for all web sites visited"
+        },
+        {
+        	"tab": chrome.i18n.getMessage('tab_preferences'),
         	"group": "Include Services",
         	"name": "Reddit",
         	"type": "checkbox",
@@ -42,7 +49,7 @@ this.manifest = {
         	"tab": chrome.i18n.getMessage('tab_preferences'),
         	"group": chrome.i18n.getMessage('excluded_regex'),
         	"name": "excludedRegex",
-        	"type": "textarea",
+        	"type": "text",
         	"label": chrome.i18n.getMessage('excluded_regex'),
         },
         {
