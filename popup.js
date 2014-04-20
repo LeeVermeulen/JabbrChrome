@@ -43,7 +43,7 @@ var jabbrGenerator = {
   requestJabbr: function() 
   {
     chrome.tabs.query({ 'active': true, 'lastFocusedWindow': true }, function (tabs) {
-		var JabbrURL = "http://jabbrv1.azurewebsites.net";
+		var JabbrURL = "http://seekr.azurewebsites.net";
 		//var JabbrURL = "http://localhost:54673";
 		var displayURL = tabs[0].url;
 		if (displayURL.length > 47)

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="fancy-settings/|fancy-settings/lib/|fancy-settings/js/|fancy-settings/js/classes/" kind="src" path=""/>
+	<classpathentry excluding="lib/|js/|js/classes/" kind="src" path="fancy-settings"/>
+	<classpathentry excluding="classes/" kind="src" path="fancy-settings/js"/>
+	<classpathentry kind="src" path="fancy-settings/js/classes"/>
+	<classpathentry kind="src" path="fancy-settings/lib"/>
+	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path=""/>
+</classpath>
