@@ -105,3 +105,19 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 		refreshBadge();
 	}
 });
+
+function openInTab(url, focus, reuseTab, delay, callback) {
+	chrome.tabs.getAllInWindow(null, 
+		function(views) {
+			var i;
+			for (i = 0; i < views.length && views[i].url != url; ++i);
+			if (i < views.length) {
+				chrome.tabs.update(views[i].id, {selected: focus}, callback);
+			} else { //if (!(delay && options.fixPopupClosesBug)) {
+				chrome.tabs.create({url: url, selected: focus, index: 5000}, callback);
+			}// else {
+			//	delayedTabs.push({url: url, selected: focus, index: 5000});
+			//}
+		}
+	);
+}

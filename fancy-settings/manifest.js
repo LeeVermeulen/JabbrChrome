@@ -1,6 +1,6 @@
 // SAMPLE
 this.manifest = {
-    "name": "Jabbr Settings",
+    "name": "Seekr Settings",
     "icon": "/icon_large.png",
     "settings": [
         {

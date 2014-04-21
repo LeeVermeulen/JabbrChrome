@@ -38,6 +38,8 @@ var filetime_as_string = function(ft) {
     return timeSince(d) + " ago"; //d.toLocaleString();
 }
 
+var backgroundPage = chrome.extension.getBackgroundPage();
+
 var jabbrGenerator = {
 
   requestJabbr: function() 
@@ -115,7 +117,7 @@ var jabbrGenerator = {
 							  	return;
 							  if (title.length > 47)
 							  	title = title.substring(0,47);
-							  HTML += "<li><a target='_blank' href='" + site.URL + "'>" + title + "</a>";
+							  HTML += "<li><a target='_blank' class='link' href='" + site.URL + "'>" + title + "</a>";
 							  if (site.Score > 0)
 							  	HTML += "<div style='display:inline' class='points sub'>" + site.Score + "</div>";
 							  if (site.Comments > 0)
@@ -153,6 +155,18 @@ var jabbrGenerator = {
 				  
 				  document.getElementById("Main").innerHTML += HTML;
 				  $('.container').tsort('',{order:'desc',attr:'score'});
+				  
+				    var links = document.getElementsByClassName("link"); // this doesnt need to be done each time...
+				    for (var i = 0; i < links.length; i++) {
+				        (function () {
+				            var ln = links[i];
+				            var location = ln.href;
+				            ln.onclick = function () {
+				            	showUrl(location, false);
+				                return false;
+				            };
+				        })();
+				    }
 				  
 				  i++;
 				  if (i == sites.length)
@@ -193,6 +207,10 @@ var jabbrGenerator = {
     });
   },
 };
+
+function showUrl(url, focus, reuse, callback) {
+	backgroundPage.openInTab(url, false, true, false);
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     jabbrGenerator.requestJabbr();

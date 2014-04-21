@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Jabbrr",
-  "description": "Jabbrr is a reverse search engine for finding search results based on a URL.",
-  "version": "1.2",
+  "name": "Seekr",
+  "description": "Seekr is a reverse search engine for finding search results based on a URL.",
+  "version": "1.4",
   
   "icons": { "128": "icon_large.png" },
 
